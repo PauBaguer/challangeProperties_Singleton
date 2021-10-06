@@ -1,12 +1,31 @@
-import junit.framework.*;
-public class test extends TestCase{
-    protected String lang, res;
-    protected void setUp(){
-        lang = "ca";
-        res = "hola";
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class test{
+
+    @After
+    public void tearDown() {
+        I18NManager.getInstance().cleanCache();
     }
 
-    public void testLanguage(){
-        assertSame(getLi(lang), res);
+    @Before
+    public void setUp() {    }
+
+    @Test
+    public void testGetText() throws Exception{
+        String msg1 = I18NManager.getInstance().getText("ca","l1");
+        Assert.assertEquals("hola",msg1);
+
+        String msg1Bis = I18NManager.getInstance().getText("ca","l1");
+        Assert.assertEquals("hola",msg1Bis);
+
+        String msg2 = I18NManager.getInstance().getText("ca","l2");
+        Assert.assertEquals("mon",msg2);
+
     }
 }
